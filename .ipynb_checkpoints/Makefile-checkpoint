@@ -9,8 +9,7 @@ setup:
 	cd ~/.food-classification
 
 install:
-	pip install --upgrade pip && \
-	pip install -r requirements.txt
+	pip install --upgrade pip && pip install -r requirements.txt
 
 download:
 	@echo "Downloading dataset..."
