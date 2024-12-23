@@ -4,7 +4,7 @@ PYTHON = python3
 all: install test
 
 setup:
-  $(PYTHON) -m venv ~/.food-classification
+	$(PYTHON) -m venv ~/.food-classification
 	. ~/.food-classification/bin/activate
 	cd ~/.food-classification
 
