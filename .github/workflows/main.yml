@@ -19,4 +19,4 @@ jobs:
      - name: Install dependencies
        run: |
          make install
-         make train
+         make test

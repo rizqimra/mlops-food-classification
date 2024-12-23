@@ -78,6 +78,4 @@ history = model.fit(
     verbose=1,
 )
 
-# Evaluate model
-eval_result = model.evaluate(test_loader)
-print(f"Test Loss: {eval_result[0]}, Test Accuracy: {eval_result[1]}")
+
