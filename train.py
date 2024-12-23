@@ -50,9 +50,7 @@ base_model.trainable = False
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 x = Dense(1024, activation="relu")(x)
-x = Dense(train_loader.num_classes, activation="softmax", dtype="float32")(
-    x
-)  # Use float32 for final layer
+x = Dense(train_loader.num_classes, activation="softmax", dtype="float32")(x)  # Use float32 for final layer
 
 model = Model(inputs=base_model.input, outputs=x)
 
@@ -63,19 +61,18 @@ model.compile(
     metrics=["accuracy"],
 )
 
-# Early stopping
-checkpoint = ModelCheckpoint(
-    "best_model.keras", monitor="val_accuracy", save_best_only=True, verbose=1
-)
-early_stop = EarlyStopping(monitor="val_accuracy", patience=5, verbose=1)
+if __name__ == "__main__":
+    # Early stopping
+    checkpoint = ModelCheckpoint(
+        "best_model.keras", monitor="val_accuracy", save_best_only=True, verbose=1
+    )
+    early_stop = EarlyStopping(monitor="val_accuracy", patience=5, verbose=1)
 
-# Train
-history = model.fit(
-    train_loader,
-    validation_data=valid_loader,
-    epochs=20,
-    callbacks=[checkpoint, early_stop],
-    verbose=1,
-)
-
-
+    # Train
+    history = model.fit(
+        train_loader,
+        validation_data=valid_loader,
+        epochs=20,
+        callbacks=[checkpoint, early_stop],
+        verbose=1,
+    )
