@@ -3,7 +3,7 @@ import tensorflow as tf
 
 def evaluate_model():
     # Load trained model
-    model = tf.keras.models.load_model("models/best_model.keras")
+    model = tf.keras.models.load_model("./models/best_model.keras")
 
     # Evaluate model
     eval_result = model.evaluate(test_loader)
