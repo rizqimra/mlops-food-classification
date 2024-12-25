@@ -25,6 +25,7 @@ data_gen_valid = ImageDataGenerator(rescale=1.0 / 255)
 
 train_loader = data_gen.flow_from_directory(train_dir, target_size=(224, 224), batch_size=32, class_mode="categorical")
 valid_loader = data_gen_valid.flow_from_directory(valid_dir, target_size=(224, 224), batch_size=32, class_mode="categorical")
+test_loader = data_gen_valid.flow_from_directory(test_dir, target_size=(224, 224), batch_size=32, class_mode="categorical")
 
 # MobileNet base model
 base_model = MobileNet(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
@@ -40,9 +41,6 @@ model = Model(inputs=base_model.input, outputs=x)
 
 # Compile model
 model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
-
-
-
 
 if __name__ == "__main__":
 	# MLflow experiment tracking
