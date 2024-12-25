@@ -41,30 +41,34 @@ model = Model(inputs=base_model.input, outputs=x)
 # Compile model
 model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
 
-# MLflow experiment tracking
-mlflow.start_run()
 
-# Log hyperparameters
-mlflow.log_param("model", "MobileNet")
-mlflow.log_param("optimizer", "Adam")
-mlflow.log_param("learning_rate", 0.001)
-mlflow.log_param("epochs", 20)
-mlflow.log_param("batch_size", 32)
 
-# Early stopping and model checkpointing
-checkpoint = ModelCheckpoint("best_model.keras", monitor="val_accuracy", save_best_only=True, verbose=1)
-early_stop = EarlyStopping(monitor="val_accuracy", patience=5, verbose=1)
 
-# Train model
-history = model.fit(train_loader, validation_data=valid_loader, epochs=20,
-                    callbacks=[checkpoint, early_stop], verbose=1)
-
-# Log metrics
-mlflow.log_metric("final_train_accuracy", history.history['accuracy'][-1])
-mlflow.log_metric("final_val_accuracy", history.history['val_accuracy'][-1])
-
-# Log model
-mlflow.tensorflow.log_model(model, "model")
-
-# End the MLflow run
-mlflow.end_run()
+if __name__ == "__main__":
+	# MLflow experiment tracking
+	mlflow.start_run()
+	
+	# Log hyperparameters
+	mlflow.log_param("model", "MobileNet")
+	mlflow.log_param("optimizer", "Adam")
+	mlflow.log_param("learning_rate", 0.001)
+	mlflow.log_param("epochs", 20)
+	mlflow.log_param("batch_size", 32)
+	
+	# Early stopping and model checkpointing
+	checkpoint = ModelCheckpoint("best_model.keras", monitor="val_accuracy", save_best_only=True, verbose=1)
+	early_stop = EarlyStopping(monitor="val_accuracy", patience=5, verbose=1)
+		
+	# Train model
+	history = model.fit(train_loader, validation_data=valid_loader, epochs=20,
+	                    callbacks=[checkpoint, early_stop], verbose=1)
+	
+	# Log metrics
+	mlflow.log_metric("final_train_accuracy", history.history['accuracy'][-1])
+	mlflow.log_metric("final_val_accuracy", history.history['val_accuracy'][-1])
+	
+	# Log model
+	mlflow.tensorflow.log_model(model, "model")
+	
+	# End the MLflow run
+	mlflow.end_run()
