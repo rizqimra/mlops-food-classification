@@ -13,11 +13,11 @@ install:
 
 download:
 	@echo "Downloading dataset..."
-	$(PYTHON) download.py
+	$(PYTHON) src/download.py
 
 train:
 	@echo "Training model..."
-	$(PYTHON) train.py
+	$(PYTHON) src/train.py
 
 test:
 	@echo "Evaluating model..."
