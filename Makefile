@@ -13,19 +13,19 @@ install:
 
 download:
 	@echo "Downloading dataset..."
-	$(PYTHON) src/download.py
+	$(PYTHON) ./src/download.py
 
 train:
 	@echo "Training model..."
-	$(PYTHON) src/train.py
+	$(PYTHON) ./src/train.py
 
 test:
 	@echo "Evaluating model..."
-	$(PYTHON) test.py
+	$(PYTHON) ./src/test.py
 
 run:
 	@echo "Starting Streamlit app..."
-	streamlit run streamlit.py
+	streamlit run src/streamlit.py
 
 .PHONY: help
 help:
